@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.suyudi.pubsub.queue.RedisMessagePublisher;
+import net.suyudi.pubsub.queue.RedisMessagePubSub;
 
 
 /**
@@ -19,13 +19,13 @@ import net.suyudi.pubsub.queue.RedisMessagePublisher;
 public class PublishController {
 
     @Autowired
-    private RedisMessagePublisher redisMessagePublisher;
+    private RedisMessagePubSub redisMessagePubSub;
 
     @GetMapping("/message")
     public String getMethodName(@RequestBody String message) {
 
         String full_message = "Message " + UUID.randomUUID() + " " + message;
-        redisMessagePublisher.publish(full_message);
+        redisMessagePubSub.publish(full_message);
 
         return message;
     }
